@@ -9,9 +9,9 @@ public class Movement : MonoBehaviour, IPunObservable
 {
     //컴포넌트 개시 처리용 변수
     private CharacterController _controller;
-    private new Transform _transform;
+    private Transform _transform;
     private Animator _animator;
-    private new Camera _camera;
+    private Camera _camera;
 
     //가상 Plnae에 레이캐스팅 변수
     private Plane _plane;
@@ -103,11 +103,12 @@ public class Movement : MonoBehaviour, IPunObservable
         _plane.Raycast(_ray, out _enter);
         _hitPoint = _ray.GetPoint(_enter);
 
-        Vector3 _lookDir = _hitPoint - transform.position;
+        Vector3 _lookDir = _hitPoint + transform.position;
         _lookDir.y = 0;
 
         transform.localRotation = Quaternion.LookRotation(_lookDir);
     }
+
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
